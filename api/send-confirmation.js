@@ -61,7 +61,7 @@ module.exports = async function handler(req, res) {
   try {
     const transporter = getTransporter();
     const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
-    const adminEmail = process.env.ADMIN_EMAIL || 'bakredivyesh@gmail.com';
+    const adminEmail = process.env.ADMIN_EMAIL || 'Officialunifiedtkd@gmail.com';
 
     // 1. Send confirmation email directly to the student
     const studentMail = await transporter.sendMail({
