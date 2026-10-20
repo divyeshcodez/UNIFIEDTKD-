@@ -63,11 +63,15 @@ module.exports = async function handler(req, res) {
     const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
     const adminEmail = process.env.ADMIN_EMAIL || 'Officialunifiedtkd@gmail.com';
 
-    const fromAddress = process.env.EMAIL_FROM || `"UNIFIEDTKD Academy" <${process.env.SMTP_FROM || 'Officialunifiedtkd@gmail.com'}>`;
+    const senderEmail = (process.env.SMTP_FROM || 'officialunifiedtkd@gmail.com').replace(/[<>]/g, '').trim();
+    const fromSender = {
+      name: 'UNIFIEDTKD Academy',
+      address: senderEmail
+    };
 
     // 1. Send confirmation email directly to the student
     const studentMail = await transporter.sendMail({
-      from: fromAddress,
+      from: fromSender,
       replyTo: `"UNIFIEDTKD Academy" <Officialunifiedtkd@gmail.com>`,
       to: email,
       subject: 'UNIFIEDTKD — Admission Application Received',
@@ -111,7 +115,7 @@ module.exports = async function handler(req, res) {
     if (adminEmail && adminEmail.toLowerCase() !== email.toLowerCase()) {
       try {
         await transporter.sendMail({
-          from: fromAddress,
+          from: fromSender,
           to: adminEmail,
           subject: `🥋 New Admission Application: ${fullName}`,
           html: `
