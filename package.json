@@ -1,0 +1,15 @@
+{
+  "name": "unifiedtkd",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UNIFIEDTKD Taekwondo Academy Website and Admission Backend",
+  "main": "api/send-confirmation.js",
+  "scripts": {
+    "start": "node scripts/email-service.js",
+    "email-service": "node scripts/email-service.js"
+  },
+  "dependencies": {
+    "nodemailer": "^10.1.7",
+    "resend": "^4.8.0"
+  }
+}
