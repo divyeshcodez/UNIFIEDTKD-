@@ -4,8 +4,12 @@ service cloud.firestore {
 
     function isAdmin() {
       return request.auth != null && (
+        request.auth.token.email == 'officialunifiedtkd@gmail.com' ||
         request.auth.token.email == 'bakredivyesh@gmail.com' ||
-        (request.auth.token.keys().hasAny(['email']) && request.auth.token.email.matches('(?i)^bakredivyesh@gmail\\.com$')) ||
+        (request.auth.token.keys().hasAny(['email']) && (
+          request.auth.token.email.matches('(?i)^officialunifiedtkd@gmail\\.com$') ||
+          request.auth.token.email.matches('(?i)^bakredivyesh@gmail\\.com$')
+        )) ||
         (request.auth.token.keys().hasAny(['admin']) && request.auth.token.admin == true)
       );
     }

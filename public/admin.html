@@ -378,11 +378,11 @@
         <!-- Login Panel -->
         <section id="loginPanel" class="panel login-box">
             <h1>Admin Sign In</h1>
-            <p class="muted">Access restricted to authorized UNIFIEDTKD academy administrators (<code>bakredivyesh@gmail.com</code>).</p>
+            <p class="muted">Access restricted to authorized UNIFIEDTKD academy administrators (<code>officialunifiedtkd@gmail.com</code>).</p>
             
             <form id="loginForm">
                 <label for="adminEmail">Email Address</label>
-                <input id="adminEmail" type="email" autocomplete="username" value="bakredivyesh@gmail.com" required>
+                <input id="adminEmail" type="email" autocomplete="username" value="officialunifiedtkd@gmail.com" required>
 
                 <label for="adminPassword">Password</label>
                 <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
@@ -486,7 +486,10 @@
             appId: "1:986225724119:web:dc43406f976e8f3c577e92"
         };
 
-        const AUTHORIZED_ADMIN_EMAIL = "bakredivyesh@gmail.com".toLowerCase();
+        const AUTHORIZED_ADMIN_EMAILS = [
+            "officialunifiedtkd@gmail.com".toLowerCase(),
+            "bakredivyesh@gmail.com".toLowerCase()
+        ];
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -537,8 +540,8 @@
             }
 
             const currentEmail = (user.email || '').toLowerCase();
-            if (currentEmail !== AUTHORIZED_ADMIN_EMAIL) {
-                showMessage(loginMessage, `Access denied: ${user.email} is not authorized. Only ${AUTHORIZED_ADMIN_EMAIL} can access the admin dashboard.`, 'error');
+            if (!AUTHORIZED_ADMIN_EMAILS.includes(currentEmail)) {
+                showMessage(loginMessage, `Access denied: ${user.email} is not authorized. Only official academy administrators can access the admin dashboard.`, 'error');
                 await signOut(auth);
                 return;
             }
@@ -559,7 +562,7 @@
             e.preventDefault();
             hideMessage(loginMessage);
 
-            const email = adminEmailInput.value.trim();
+            const email = adminEmailInput.value.trim().toLowerCase();
             const password = adminPasswordInput.value;
 
             if (!email || !password) {
@@ -567,8 +570,8 @@
                 return;
             }
 
-            if (email.toLowerCase() !== AUTHORIZED_ADMIN_EMAIL) {
-                showMessage(loginMessage, `Only ${AUTHORIZED_ADMIN_EMAIL} is authorized to sign in.`, 'error');
+            if (!AUTHORIZED_ADMIN_EMAILS.includes(email)) {
+                showMessage(loginMessage, `Access denied: ${email} is not authorized for admin access.`, 'error');
                 return;
             }
 
