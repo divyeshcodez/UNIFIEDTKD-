@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>UNIFIEDTKD | Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #101010;
+            color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 18px 5%;
+            background: #080808;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ff3030;
+        }
+
+        .admin-badge {
+            display: inline-block;
+            background: #252525;
+            color: #bbb;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ff3030;
+        }
+
+        .user-pill {
+            font-size: 13px;
+            color: #7dd3fc;
+            background: #0c4a6e26;
+            border: 1px solid #0284c744;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        main {
+            max-width: 1250px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            background: #191919;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        h1, h2 {
+            margin-bottom: 12px;
+        }
+
+        p.muted {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin: 14px 0 6px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background: #111;
+            color: #fff;
+            font: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ff3030;
+        }
+
+        button {
+            border: 0;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            background: #ff3030;
+            color: white;
+            transition: background 0.2s, opacity 0.2s;
+        }
+
+        button:hover {
+            background: #d82020;
+        }
+
+        button:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #333;
+            color: #eee;
+        }
+
+        .btn-secondary:hover {
+            background: #444;
+        }
+
+        .btn-approve {
+            background: #15803d;
+            color: white;
+            padding: 7px 12px;
+            font-size: 13px;
+            margin-right: 6px;
+        }
+
+        .btn-approve:hover {
+            background: #166534;
+        }
+
+        .btn-reject {
+            background: #b91c1c;
+            color: white;
+            padding: 7px 12px;
+            font-size: 13px;
+        }
+
+        .btn-reject:hover {
+            background: #991b1b;
+        }
+
+        .login-box {
+            max-width: 440px;
+            margin: 60px auto;
+        }
+
+        .message {
+            margin-top: 14px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: #450a0a;
+            border: 1px solid #991b1b;
+            color: #fca5a5;
+        }
+
+        .message.success {
+            background: #052e16;
+            border: 1px solid #166534;
+            color: #86efac;
+        }
+
+        .message.info {
+            background: #172554;
+            border: 1px solid #1e40af;
+            color: #93c5fd;
+        }
+
+        /* Stats cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 16px 20px;
+        }
+
+        .stat-card .title {
+            font-size: 13px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .val {
+            font-size: 28px;
+            font-weight: 900;
+            margin-top: 6px;
+        }
+
+        .stat-card.pending .val {
+            color: #facc15;
+        }
+
+        .stat-card.approved .val {
+            color: #4ade80;
+        }
+
+        .stat-card.rejected .val {
+            color: #f87171;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .toolbar select, .toolbar input {
+            max-width: 250px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            background: #181818;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+            font-size: 14px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 16px;
+            border-bottom: 1px solid #282828;
+            vertical-align: top;
+        }
+
+        th {
+            background: #111;
+            color: #ff6464;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover td {
+            background: #202020;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .badge-pending {
+            background: #713f1244;
+            color: #facc15;
+            border: 1px solid #ca8a0466;
+        }
+
+        .badge-approved {
+            background: #064e3b44;
+            color: #4ade80;
+            border: 1px solid #05966966;
+        }
+
+        .badge-rejected {
+            background: #7f1d1d44;
+            color: #f87171;
+            border: 1px solid #dc262666;
+        }
+
+        .student-cell {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .student-time {
+            font-size: 12px;
+            color: #888;
+            font-weight: normal;
+            margin-top: 3px;
+        }
+
+        .contact-cell {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .notes-cell {
+            max-width: 260px;
+            font-size: 13px;
+            color: #bbb;
+            overflow-wrap: anywhere;
+        }
+
+        .actions-cell {
+            white-space: nowrap;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            UNIFIED<span>TKD</span>
+            <span class="admin-badge">ADMIN DASHBOARD</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" target="_blank">View Website ↗</a>
+            <span id="userPill" class="user-pill hidden"></span>
+            <button id="logoutBtn" class="btn-secondary hidden" style="padding: 7px 14px;">Sign Out</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Login Panel -->
+        <section id="loginPanel" class="panel login-box">
+            <h1>Admin Sign In</h1>
+            <p class="muted">Access restricted to authorized UNIFIEDTKD academy administrators (<code>bakredivyesh@gmail.com</code>).</p>
+            
+            <form id="loginForm">
+                <label for="adminEmail">Email Address</label>
+                <input id="adminEmail" type="email" autocomplete="username" value="bakredivyesh@gmail.com" required>
+
+                <label for="adminPassword">Password</label>
+                <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
+
+                <button type="submit" id="loginBtn" style="margin-top: 18px; width: 100%;">Sign In</button>
+            </form>
+
+            <div id="loginMessage" class="message" role="status"></div>
+        </section>
+
+        <!-- Dashboard Panel -->
+        <section id="dashboard" class="hidden">
+            <!-- Stats overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="title">Total Applications</div>
+                    <div class="val" id="statTotal">0</div>
+                </div>
+                <div class="stat-card pending">
+                    <div class="title">Pending Review</div>
+                    <div class="val" id="statPending">0</div>
+                </div>
+                <div class="stat-card approved">
+                    <div class="title">Approved</div>
+                    <div class="val" id="statApproved">0</div>
+                </div>
+                <div class="stat-card rejected">
+                    <div class="title">Rejected</div>
+                    <div class="val" id="statRejected">0</div>
+                </div>
+            </div>
+
+            <!-- Toolbar & Controls -->
+            <div class="panel">
+                <h2>Admission Applications</h2>
+                <p class="muted">Review incoming admission requests, filter by status, and update application approval state.</p>
+
+                <div class="toolbar">
+                    <select id="statusFilter" aria-label="Filter applications by status">
+                        <option value="">All Statuses</option>
+                        <option value="Pending">Pending Only</option>
+                        <option value="Approved">Approved Only</option>
+                        <option value="Rejected">Rejected Only</option>
+                    </select>
+
+                    <input id="searchInput" type="search" placeholder="Search by name, phone, branch..." aria-label="Search applications">
+
+                    <button id="refreshBtn" class="btn-secondary">↻ Refresh</button>
+                </div>
+
+                <div id="dashboardMessage" class="message" role="status"></div>
+            </div>
+
+            <!-- Table of Applications -->
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Age / Height</th>
+                            <th>Contact Info</th>
+                            <th>Selected Branch</th>
+                            <th>Additional Notes</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicationsBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #888; padding: 30px;">Loading applications...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            onAuthStateChanged, 
+            signOut 
+        } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
+        import { 
+            getFirestore, 
+            collection, 
+            getDocs, 
+            doc, 
+            updateDoc, 
+            serverTimestamp 
+        } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDYV-Eaz_KX__COOBjZb7jY1UxwsEWBnxo",
+            authDomain: "taekwondokanishka.firebaseapp.com",
+            projectId: "taekwondokanishka",
+            storageBucket: "taekwondokanishka.firebasestorage.app",
+            messagingSenderId: "986225724119",
+            appId: "1:986225724119:web:dc43406f976e8f3c577e92"
+        };
+
+        const AUTHORIZED_ADMIN_EMAIL = "bakredivyesh@gmail.com".toLowerCase();
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Elements
+        const loginPanel = document.getElementById('loginPanel');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const adminEmailInput = document.getElementById('adminEmail');
+        const adminPasswordInput = document.getElementById('adminPassword');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginMessage = document.getElementById('loginMessage');
+        const userPill = document.getElementById('userPill');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const statusFilter = document.getElementById('statusFilter');
+        const searchInput = document.getElementById('searchInput');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const dashboardMessage = document.getElementById('dashboardMessage');
+        const applicationsBody = document.getElementById('applicationsBody');
+
+        // Stats elements
+        const statTotal = document.getElementById('statTotal');
+        const statPending = document.getElementById('statPending');
+        const statApproved = document.getElementById('statApproved');
+        const statRejected = document.getElementById('statRejected');
+
+        let cachedApplications = [];
+
+        function showMessage(el, text, type) {
+            el.textContent = text;
+            el.className = `message show ${type}`;
+        }
+
+        function hideMessage(el) {
+            el.textContent = '';
+            el.className = 'message';
+        }
+
+        // Authentication State Listener
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                loginPanel.classList.remove('hidden');
+                dashboard.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+                userPill.classList.add('hidden');
+                return;
+            }
+
+            const currentEmail = (user.email || '').toLowerCase();
+            if (currentEmail !== AUTHORIZED_ADMIN_EMAIL) {
+                showMessage(loginMessage, `Access denied: ${user.email} is not authorized. Only ${AUTHORIZED_ADMIN_EMAIL} can access the admin dashboard.`, 'error');
+                await signOut(auth);
+                return;
+            }
+
+            // Authorized Admin
+            loginPanel.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+            logoutBtn.classList.remove('hidden');
+            userPill.classList.remove('hidden');
+            userPill.textContent = user.email;
+            hideMessage(loginMessage);
+
+            await loadApplications();
+        });
+
+        // Sign In
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessage(loginMessage);
+
+            const email = adminEmailInput.value.trim();
+            const password = adminPasswordInput.value;
+
+            if (!email || !password) {
+                showMessage(loginMessage, 'Please provide both email and password.', 'error');
+                return;
+            }
+
+            if (email.toLowerCase() !== AUTHORIZED_ADMIN_EMAIL) {
+                showMessage(loginMessage, `Only ${AUTHORIZED_ADMIN_EMAIL} is authorized to sign in.`, 'error');
+                return;
+            }
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (err) {
+                console.error("Sign-in error:", err);
+                let friendlyMsg = 'Sign in failed. Please check your credentials.';
+                if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+                    friendlyMsg = 'Invalid password or credentials.';
+                } else if (err.code === 'auth/user-not-found') {
+                    friendlyMsg = `No account found for ${email}. Please create the user in Firebase Authentication console.`;
+                } else if (err.message) {
+                    friendlyMsg = err.message;
+                }
+                showMessage(loginMessage, friendlyMsg, 'error');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
+            }
+        });
+
+        // Sign Out
+        logoutBtn.addEventListener('click', async () => {
+            await signOut(auth);
+        });
+
+        // Load Applications from Firestore
+        async function loadApplications() {
+            applicationsBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #888; padding: 30px;">Loading applications from Firestore...</td></tr>';
+            hideMessage(dashboardMessage);
+            refreshBtn.disabled = true;
+
+            try {
+                const snapshot = await getDocs(collection(db, 'applications'));
+                const list = [];
+                snapshot.forEach(docSnap => {
+                    list.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                // Sort descending by creation date
+                list.sort((a, b) => {
+                    const timeA = getTimeValue(a.createdAt);
+                    const timeB = getTimeValue(b.createdAt);
+                    return timeB - timeA;
+                });
+
+                cachedApplications = list;
+                updateStats(list);
+                renderApplications();
+            } catch (err) {
+                console.error("Failed to load applications:", err);
+                applicationsBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #f87171; padding: 30px;">Could not load applications. Please ensure security rules permit admin read.</td></tr>';
+                showMessage(dashboardMessage, 'Error loading applications: ' + (err.message || 'Firestore request denied.'), 'error');
+            } finally {
+                refreshBtn.disabled = false;
+            }
+        }
+
+        function getTimeValue(ts) {
+            if (!ts) return 0;
+            if (typeof ts.toMillis === 'function') return ts.toMillis();
+            if (typeof ts.toDate === 'function') return ts.toDate().getTime();
+            if (ts.seconds) return ts.seconds * 1000;
+            const parsed = new Date(ts).getTime();
+            return isNaN(parsed) ? 0 : parsed;
+        }
+
+        function formatDate(ts) {
+            if (!ts) return 'Date unknown';
+            let dateObj;
+            if (typeof ts.toDate === 'function') dateObj = ts.toDate();
+            else if (ts.seconds) dateObj = new Date(ts.seconds * 1000);
+            else dateObj = new Date(ts);
+
+            if (isNaN(dateObj.getTime())) return 'Date unknown';
+            return dateObj.toLocaleDateString('en-IN', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            }) + ' ' + dateObj.toLocaleTimeString('en-IN', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function updateStats(apps) {
+            let total = apps.length;
+            let pending = 0;
+            let approved = 0;
+            let rejected = 0;
+
+            apps.forEach(a => {
+                const s = (a.status || 'Pending').toLowerCase();
+                if (s === 'approved') approved++;
+                else if (s === 'rejected') rejected++;
+                else pending++;
+            });
+
+            statTotal.textContent = total;
+            statPending.textContent = pending;
+            statApproved.textContent = approved;
+            statRejected.textContent = rejected;
+        }
+
+        function renderApplications() {
+            const filterVal = statusFilter.value.trim().toLowerCase();
+            const searchVal = searchInput.value.trim().toLowerCase();
+
+            const filtered = cachedApplications.filter(app => {
+                const s = (app.status || 'Pending').toLowerCase();
+                if (filterVal && s !== filterVal) return false;
+
+                if (searchVal) {
+                    const student = (app.fullName || app.studentName || '').toLowerCase();
+                    const phone = (app.phone || '').toLowerCase();
+                    const email = (app.email || '').toLowerCase();
+                    const branch = (app.branch || app.branchBatch || '').toLowerCase();
+                    const matches = student.includes(searchVal) || phone.includes(searchVal) || email.includes(searchVal) || branch.includes(searchVal);
+                    if (!matches) return false;
+                }
+
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                applicationsBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #888; padding: 30px;">No applications match the selected criteria.</td></tr>';
+                return;
+            }
+
+            applicationsBody.innerHTML = '';
+            filtered.forEach(app => {
+                const tr = document.createElement('tr');
+
+                const studentName = app.fullName || app.studentName || 'Unnamed Student';
+                const dateStr = formatDate(app.createdAt);
+                const age = app.age ? `${app.age} yrs` : '-';
+                const height = app.heightCm ? `${app.heightCm} cm` : '-';
+                const phone = app.phone || '-';
+                const email = app.email || '-';
+                const parent = app.parentGuardianName ? `Guardian: ${app.parentGuardianName}` : '';
+                const branch = app.branch || app.branchBatch || 'Not specified';
+                const notes = app.notes || '-';
+                const status = app.status || 'Pending';
+
+                let badgeClass = 'badge-pending';
+                if (status === 'Approved') badgeClass = 'badge-approved';
+                if (status === 'Rejected') badgeClass = 'badge-rejected';
+
+                tr.innerHTML = `
+                    <td>
+                        <div class="student-cell">${escapeHtml(studentName)}</div>
+                        <div class="student-time">Applied: ${escapeHtml(dateStr)}</div>
+                    </td>
+                    <td>
+                        <div>${escapeHtml(age)}</div>
+                        <div style="color:#aaa; font-size:12px;">${escapeHtml(height)}</div>
+                    </td>
+                    <td class="contact-cell">
+                        <div>📞 <a href="tel:${escapeHtml(phone)}" style="color:#7dd3fc;text-decoration:none;">${escapeHtml(phone)}</a></div>
+                        <div>✉️ <a href="mailto:${escapeHtml(email)}" style="color:#aaa;text-decoration:none;">${escapeHtml(email)}</a></div>
+                        ${parent ? `<div style="color:#888; font-size:12px;">${escapeHtml(parent)}</div>` : ''}
+                    </td>
+                    <td>${escapeHtml(branch)}</td>
+                    <td class="notes-cell">${escapeHtml(notes)}</td>
+                    <td>
+                        <span class="badge ${badgeClass}">${escapeHtml(status)}</span>
+                    </td>
+                    <td class="actions-cell"></td>
+                `;
+
+                const actionTd = tr.querySelector('.actions-cell');
+
+                if (status !== 'Approved') {
+                    const approveBtn = document.createElement('button');
+                    approveBtn.className = 'btn-approve';
+                    approveBtn.textContent = 'Approve';
+                    approveBtn.onclick = () => updateApplicationStatus(app.id, studentName, 'Approved');
+                    actionTd.appendChild(approveBtn);
+                }
+
+                if (status !== 'Rejected') {
+                    const rejectBtn = document.createElement('button');
+                    rejectBtn.className = 'btn-reject';
+                    rejectBtn.textContent = 'Reject';
+                    rejectBtn.onclick = () => updateApplicationStatus(app.id, studentName, 'Rejected');
+                    actionTd.appendChild(rejectBtn);
+                }
+
+                applicationsBody.appendChild(tr);
+            });
+        }
+
+        async function updateApplicationStatus(docId, studentName, newStatus) {
+            if (!confirm(`Are you sure you want to change the status of ${studentName}'s application to "${newStatus}"?`)) {
+                return;
+            }
+
+            hideMessage(dashboardMessage);
+            showMessage(dashboardMessage, `Updating status for ${studentName}...`, 'info');
+
+            try {
+                const appRef = doc(db, 'applications', docId);
+                await updateDoc(appRef, {
+                    status: newStatus,
+                    updatedAt: serverTimestamp()
+                });
+
+                showMessage(dashboardMessage, `Application for ${studentName} successfully marked as ${newStatus}.`, 'success');
+                
+                // Update local model
+                const item = cachedApplications.find(a => a.id === docId);
+                if (item) {
+                    item.status = newStatus;
+                }
+                updateStats(cachedApplications);
+                renderApplications();
+            } catch (err) {
+                console.error("Status update error:", err);
+                showMessage(dashboardMessage, `Failed to update status: ${err.message}`, 'error');
+            }
+        }
+
+        function escapeHtml(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // Toolbar listeners
+        statusFilter.addEventListener('change', renderApplications);
+        searchInput.addEventListener('input', renderApplications);
+        refreshBtn.addEventListener('click', loadApplications);
+    </script>
+</body>
+
+</html>

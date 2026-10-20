@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNIFIEDTKD | Taekwondo Academy</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #101010;
+      color: #fff;
+      line-height: 1.6
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 7%;
+      background: #080808;
+      position: sticky;
+      top: 0;
+      z-index: 10
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: 1px
+    }
+
+    .logo span,
+    h1 span {
+      color: #ff3030
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px
+    }
+
+    nav a:hover {
+      color: #ff3030
+    }
+
+    .hero {
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      padding: 65px 8%;
+      background: linear-gradient(90deg, #080808 10%, #080808c9 60%, #08080835), url("https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&w=1800&q=85") center/cover
+    }
+
+    .hero-content {
+      max-width: 650px
+    }
+
+    .tag {
+      color: #ff4040;
+      font-weight: bold;
+      letter-spacing: 3px
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.05;
+      margin: 20px 0
+    }
+
+    p {
+      color: #ccc
+    }
+
+    .btn {
+      display: inline-block;
+      background: #ed2929;
+      color: white;
+      border: 0;
+      padding: 13px 23px;
+      margin-top: 20px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer
+    }
+
+    .btn:hover {
+      background: #b91515
+    }
+
+    section {
+      padding: 75px 8%
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px
+    }
+
+    .section-title h2 {
+      font-size: 32px
+    }
+
+    .section-title p {
+      margin-top: 8px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 23px
+    }
+
+    .card {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden
+    }
+
+    .card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block
+    }
+
+    .card-content {
+      padding: 22px
+    }
+
+    .card h3 {
+      margin-bottom: 10px
+    }
+
+    #fees {
+      background: #151515
+    }
+
+    .price {
+      font-size: 29px;
+      color: #ff4040;
+      font-weight: bold;
+      margin: 12px 0
+    }
+
+    .price small {
+      font-size: 13px;
+      color: #aaa
+    }
+
+    .card ul {
+      padding-left: 20px;
+      color: #ccc
+    }
+
+    .card li {
+      margin: 7px 0
+    }
+
+    #apply {
+      background: #f5f5f5;
+      color: #111
+    }
+
+    #apply p {
+      color: #555
+    }
+
+    form {
+      max-width: 800px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px
+    }
+
+    .field.full {
+      grid-column: 1/-1
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font: inherit;
+      width: 100%;
+      background: white;
+      color: #111
+    }
+
+    #gallery {
+      background: #101010
+    }
+
+    .gallery .card img {
+      height: 260px
+    }
+
+    #contact {
+      text-align: center;
+      background: #171717
+    }
+
+    .contact-line {
+      margin: 10px 0
+    }
+
+    footer {
+      text-align: center;
+      background: #080808;
+      padding: 25px;
+      color: #999
+    }
+
+    @media(max-width:700px) {
+      header {
+        flex-direction: column;
+        gap: 14px
+      }
+
+      nav {
+        justify-content: center;
+        gap: 12px
+      }
+
+      .hero {
+        min-height: 500px;
+        padding: 45px 7%
+      }
+
+      section {
+        padding: 55px 6%
+      }
+
+      form {
+        grid-template-columns: 1fr
+      }
+
+      .field.full {
+        grid-column: auto
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">UNIFIED<span>TKD</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#programs">Programs</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#apply">Admission</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="tag">DISCIPLINE • STRENGTH • RESPECT</div>
+        <h1>TRAIN HARD.<br>STAY <span>UNIFIED.</span></h1>
+        <p>Welcome to UNIFIEDTKD. Learn Taekwondo, improve your techniques, develop confidence and train with
+          discipline.</p>
+        <a href="#apply" class="btn">JOIN OUR ACADEMY →</a>
+      </div>
+    </section>
+
+    <section id="programs">
+      <div class="section-title">
+        <h2>OUR TAEKWONDO PROGRAMS</h2>
+        <p>Training opportunities for beginners and experienced students.</p>
+      </div>
+      <div class="grid">
+
+        <article class="card">
+          <img
+            src="https://images.pexels.com/photos/7045483/pexels-photo-7045483.jpeg?cs=srgb&dl=pexels-rdne-7045483.jpg&fm=jpg"
+            alt="Taekwondo martial arts training">
+          <div class="card-content">
+            <h3>Self Defence</h3>
+            <p>Age-appropriate classes focusing on basic kicks, balance, discipline and Taekwondo techniques.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img
+            src="https://media.gettyimages.com/id/2158676692/photo/little-girl-and-her-taekwondo-coach-are-practicing-kicks-to-use-in-a-competition-fighting.jpg?b=1&s=2048x2048&w=0&k=20&c=CkGORXh2pCF4Prkj3tOO1nZbvwkFsAevsW1915RwPAM="
+            alt="Training session — replace with a verified Taekwondo kicking photo">
+          <div class="card-content">
+            <h3>Taekwondo Sparring</h3>
+            <p>Learn basic stances, blocks, kicks, forms and the foundations of Taekwondo.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.G0pcgpreJ7io2PLF-oMTFgHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+            alt="Taekwondo practice — replace with a sparring photograph">
+          <div class="card-content">
+            <h3>Poomsae</h3>
+            <p>Practise advanced kicking techniques, poomsae, controlled sparring and competition skills.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="apply">
+      <div class="section-title">
+        <h2>STUDENT ADMISSION FORM</h2>
+        <p>Fill in your details to enquire about joining UNIFIEDTKD.</p>
+      </div>
+      <form id="applicationForm">
+        <div class="field">
+          <label for="student">Student's Full Name *</label>
+          <input id="student" name="student" required>
+        </div>
+        <div class="field">
+          <label for="age">Age *</label>
+          <input id="age" name="age" type="number" min="4" max="100" required>
+        </div>
+        <div class="field">
+          <label for="height">Height (cm) *</label>
+          <input id="height" name="height" type="number" min="50" max="250" step="1" placeholder="Enter height in cm"
+            required>
+        </div>
+        <div class="field">
+          <label for="phone">Contact Number *</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+        </div>
+        <div class="field">
+          <label for="email">Email Address *</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="parent">Parent/Guardian Name</label>
+          <input id="parent" name="parent">
+        </div>
+        <div class="field">
+          <label for="batch">Preferred Batch *</label>
+          <select id="batch" name="batch" required>
+            <option value="">Choose a batch</option>
+            <option value="Navjeevan Vidyamandir and Junior College (Mon/Wed/Fri)">Navjeevan Vidyamandir and Junior
+              College - Monday / Wednesday / Friday</option>
+            <option value="Br. Nath Pai Vidyalaya (Tue/Thu/Sat)">Br. Nath Pai Vidyalaya - Tuesday / Thursday / Saturday
+            </option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="message">Additional Information</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+        <div class="field full">
+          <button type="submit" class="btn">SUBMIT APPLICATION</button>
+          <p id="formMessage" role="status"></p>
+        </div>
+      </form>
+    </section>
+
+    <section id="gallery">
+      <div class="section-title">
+        <h2>TAEKWONDO GALLERY</h2>
+        <p>Kicking techniques, training, sparring and competitions.</p>
+      </div>
+      <div class="grid gallery">
+
+        <article class="card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.AShvVGybI11RL38konZOFAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+            alt="Taekwondo training">
+          <div class="card-content">
+            <h3>Training Sessions</h3>
+            <p>Practise and improve techniques.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://myungstkd.com/wp-content/uploads/2018/10/High-Performance-Sparring-1200x600.jpg"
+            alt="Taekwondo sparring">
+          <div class="card-content">
+            <h3>Sparring & Competition</h3>
+            <p>See Taekwondo athletes in action.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://i.pinimg.com/originals/ed/e5/c0/ede5c0fd91ddbb0f0a3bc47fc33ec3be.jpg"
+            alt="Taekwondo techniques">
+          <div class="card-content">
+            <h3>Skills & Techniques</h3>
+            <p>Explore more Taekwondo photographs.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title">
+        <h2>CONTACT UNIFIEDTKD</h2>
+        <p>Contact us for admissions, fees and class timings.</p>
+      </div>
+      <p class="contact-line">📍 Academy Address: Bhandup(W), Mumbai-400078</p>
+      <p class="contact-line">📞 Phone: 8010309474</p>
+      <p class="contact-line">✉️ Email: unifiedtkd@gmail.com</p>
+      <a href="#apply" class="btn">ENQUIRE NOW</a>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> UNIFIEDTKD. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDYV-Eaz_KX__COOBjZb7jY1UxwsEWBnxo",
+      authDomain: "taekwondokanishka.firebaseapp.com",
+      projectId: "taekwondokanishka",
+      storageBucket: "taekwondokanishka.firebasestorage.app",
+      messagingSenderId: "986225724119",
+      appId: "1:986225724119:web:dc43406f976e8f3c577e92"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("applicationForm");
+    const submitButton = form.querySelector('button[type="submit"]');
+    const formMessage = document.getElementById("formMessage");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const data = new FormData(form);
+      const studentName = String(data.get("student") || "").trim();
+      const ageVal = data.get("age");
+      const heightVal = data.get("height");
+      const phoneVal = String(data.get("phone") || "").trim();
+      const emailVal = String(data.get("email") || "").trim();
+      const parentVal = String(data.get("parent") || "").trim();
+      const batchVal = String(data.get("batch") || "").trim();
+      const messageVal = String(data.get("message") || "").trim();
+
+      if (!studentName || !phoneVal || !emailVal || !batchVal) {
+        formMessage.textContent = "Please fill in all required fields.";
+        formMessage.style.color = "#a32020";
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "SUBMITTING...";
+      formMessage.textContent = "Submitting your application...";
+      formMessage.style.color = "#555";
+
+      try {
+        await addDoc(collection(db, "applications"), {
+          fullName: studentName,
+          studentName: studentName,
+          email: emailVal,
+          phone: phoneVal,
+          branch: batchVal,
+          branchBatch: batchVal,
+          age: ageVal ? Number(ageVal) : null,
+          heightCm: heightVal ? Number(heightVal) : null,
+          parentGuardianName: parentVal,
+          notes: messageVal,
+          status: "Pending",
+          createdAt: serverTimestamp()
+        });
+
+        // Dispatch confirmation email via Resend backend service
+        try {
+          const emailEndpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:3001/api/send-confirmation'
+            : '/api/send-confirmation';
+
+          fetch(emailEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fullName: studentName,
+              email: emailVal,
+              phone: phoneVal,
+              branch: batchVal
+            })
+          }).catch(e => console.warn('Resend dispatch notice:', e));
+        } catch (emailErr) {
+          console.warn('Resend endpoint error:', emailErr);
+        }
+
+        formMessage.textContent = "Your application is sent, thank you for applying and you will get a confirmation email.";
+        formMessage.style.color = "#147a32";
+        form.reset();
+      } catch (error) {
+        console.error("Admission submission failed:", error);
+        formMessage.textContent = "We couldn't submit your application. Please try again or contact unifiedtkd@gmail.com.";
+        formMessage.style.color = "#a32020";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "SUBMIT APPLICATION";
+      }
+    });
+  </script>
+</body>
+
+</html>
