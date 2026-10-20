@@ -9,7 +9,6 @@
     "email-service": "node scripts/email-service.js"
   },
   "dependencies": {
-    "nodemailer": "^10.1.7",
-    "resend": "^4.8.0"
+    "nodemailer": "^10.1.7"
   }
 }

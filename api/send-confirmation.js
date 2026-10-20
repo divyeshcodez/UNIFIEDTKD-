@@ -66,6 +66,7 @@ module.exports = async function handler(req, res) {
     // 1. Send confirmation email directly to the student
     const studentMail = await transporter.sendMail({
       from: `"UNIFIEDTKD Academy" <${smtpUser}>`,
+      replyTo: `"UNIFIEDTKD Academy" <Officialunifiedtkd@gmail.com>`,
       to: email,
       subject: 'UNIFIEDTKD — Admission Application Received',
       html: `
@@ -95,11 +96,11 @@ module.exports = async function handler(req, res) {
           
           <p style="font-size: 12px; color: #9ca3af; margin: 0;">
             📍 Academy Address: Bhandup(W), Mumbai-400078<br>
-            📞 Phone: 8010309474 | ✉️ Email: unifiedtkd@gmail.com
+            📞 Phone: 8010309474 | ✉️ Email: Officialunifiedtkd@gmail.com
           </p>
         </div>
       `,
-      text: `Dear ${fullName},\n\nYour application is sent, thank you for applying and you will get a confirmation email.\n\nSelected Branch: ${branch || 'Standard Branch'}\nStatus: Pending Review\n\nUNIFIEDTKD Academy\nBhandup(W), Mumbai-400078 | Phone: 8010309474`
+      text: `Dear ${fullName},\n\nYour application is sent, thank you for applying and you will get a confirmation email.\n\nSelected Branch: ${branch || 'Standard Branch'}\nStatus: Pending Review\n\nUNIFIEDTKD Academy\nBhandup(W), Mumbai-400078 | Phone: 8010309474 | Email: Officialunifiedtkd@gmail.com`
     });
 
     console.log(`✅ SMTP confirmation email sent to: ${email} (MessageId: ${studentMail.messageId})`);
